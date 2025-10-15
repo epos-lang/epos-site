@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Global Metadata -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--<link rel="icon" type="image/ico" href="assets/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png" />
+  <link rel="manifest" href="assets/site.webmanifest" />-->
+
+  <title>Epos Programming Language</title>
+  <meta name="title" content="Epos Programming Language">
+  <meta name="description" content="Programming that feels like epic poetry" />
+
+  <!-- Code highlighting -->
+  <link rel="stylesheet" href="assets/highlight.js/highlight.min.css">
+  <link rel="stylesheet" href="assets/highlight.js/rose-pine-moon.css">
+  <script src="assets/highlight.js/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+
+  <!-- Font preloads -->
+  <link rel="preload" href="assets/fonts/junicode/Junicode.ttf" as="font" type="font/ttf" crossorigin />
+  <link rel="preload" href="assets/fonts/junicode/Junicode-Bold.ttf" as="font" type="font/ttf" crossorigin />
+  <link rel="preload" href="assets/fonts/junicode/Junicode-BoldItalic.ttf" as="font" type="font/ttf" crossorigin />
+  <link rel="preload" href="assets/fonts/junicode/Junicode-Italic.ttf" as="font" type="font/ttf" crossorigin />
+
+  <link href="style.css?v=5" rel="stylesheet">
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <h1>Epos Programming Language</h1>
+      <h2>Programming that feels like <b>epic poetry</b></h2>
+      <h3>An <i>Eloquent</i> and <i>Efficient</i> Functional Statically-typed Programming Language</h3>
+
+      <div class="btns">
+        <a href="install" class="install">Install</a>
+        <a href="docs" class="docs">Docs</a>
+      </div>
+    </section>
+
+    <section class="example-code">
+      <h3>Example code:</h3>
+      <pre><code>fn each(lst: list(t), fun: fn(t), index: int = 0)
+  lst.elem(index).fun()
+  match index < len(lst) - 1 then
+    true => each(lst, fun, index + 1)
+  end
+end
+
+# A book record
+record Book
+  title: string
+  author: string
+end
+books: list(Book) = {
+  @{
+    title => "Fear and Trembling",
+    author => "Johannas de Silentio"
+  }, @{
+    title => "Either/Or",
+    author => "Victor Eremita"
+  }, @{
+    title => "Concluding Unscientific Postscript",
+    author => "Johannas Climacus"
+  }
+}
+
+books.each(fn(book: Book) => print([[Title: #{book.title}
+Author: #{book.author}]]))</code></pre>
+    </section>
+  </main>
+</body>
+</html>
