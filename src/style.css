@@ -25,16 +25,32 @@
 }
 
 body {
-  /*@apply bg-red-900 md:overflow-hidden;*/
   @apply bg-red-900;
 }
 
 main {
-  @apply mx-auto min-h-full max-w-5xl py-16;
+  @apply mx-auto min-h-full max-w-5xl py-16 md:py-0 md:items-center md:justify-center md:grid md:grid-cols-2 md:gap-10;
 }
 
 section {
-  @apply justify-center py-4;
+  @apply justify-center;
+
+  &.example-code {
+    @apply p-4 text-sm;
+
+    & h3 {
+      @apply text-xl md:text-2xl text-gray-300;
+      font-family: monospace;
+    }
+
+    & pre {
+      @apply shadow-lg shadow-gray-900 selection:bg-gray-200 selection:text-gray-900;
+
+      & code {
+        @apply rounded-md;
+      }
+    }
+  }
 }
 
 h1 {

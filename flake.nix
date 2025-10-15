@@ -25,7 +25,7 @@
           }
           run_on_change &
 
-          ${pkgs.static-web-server}/bin/static-web-server -p 8084 -d docs/.
+          #${pkgs.static-web-server}/bin/static-web-server -p 8084 -d docs/.
         '';
 
         devShells.default = pkgs.mkShell {

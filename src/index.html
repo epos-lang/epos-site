@@ -25,39 +25,36 @@
   <link rel="preload" href="assets/fonts/junicode/Junicode-BoldItalic.ttf" as="font" type="font/ttf" crossorigin />
   <link rel="preload" href="assets/fonts/junicode/Junicode-Italic.ttf" as="font" type="font/ttf" crossorigin />
 
-  <link href="style.css?v=4" rel="stylesheet">
+  <link href="style.css?v=5" rel="stylesheet">
 </head>
 <body>
   <main>
-    <section>
+    <section class="hero">
       <h1>Epos Programming Language</h1>
       <h2>Programming that feels like <b>epic poetry</b></h2>
       <h3>An <i>Eloquent</i> and <i>Efficient</i> Functional Statically-typed Programming Language</h3>
 
       <div class="btns">
-        <a href="/install" class="install">Install</a>
-        <a href="/docs" class="docs">Docs</a>
+        <a href="install" class="install">Install</a>
+        <a href="docs" class="docs">Docs</a>
       </div>
+    </section>
 
-      <p>Example code:</p>
-      <pre><code>
-(#
-  Simple program in Epos
-#)
-
-fn each(lst: list(t), fun: fn(t), index: int = 0)
+    <section class="example-code">
+      <h3>Example code:</h3>
+      <pre><code>fn each(lst: list(t), fun: fn(t), index: int = 0)
   lst.elem(index).fun()
   match index < len(lst) - 1 then
     true => each(lst, fun, index + 1)
   end
 end
 
+# A book record
 record Book
   title: string
   author: string
   date: string
 end
-
 books: list(Book) = {
   @{
     title => "Fear and Trembling",
@@ -74,11 +71,9 @@ books: list(Book) = {
   }
 }
 
-books.each(fn(book: Book) => print([[
-Title: #{book.title}
+books.each(fn(book: Book) => print([[Title: #{book.title}
 Author: #{book.author}
-Date: #{book.date}
-]]))</code></pre>
+Date: #{book.date}]]))</code></pre>
     </section>
   </main>
 </body>
