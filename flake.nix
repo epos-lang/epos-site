@@ -10,43 +10,23 @@
     flake-utils.lib.eachDefaultSystem (system:
       let pkgs = import nixpkgs { inherit system; };
       in {
-        packages.default = pkgs.stdenv.mkDerivation {
-          name = "epos-site";
-          src = self;
-          buildInputs = with pkgs; [
-            tailwindcss
-            inotify-tools
-            static-web-server
-          ];
-          nativeBuildInputs = with pkgs; [ makeWrapper ];
-          installPhase = ''
-            mkdir -p $out/bin
-            cat > $out/bin/serve <<EOF
-              #!/usr/bin/env ${pkgs.bash}/bin/bash
+        packages.default = pkgs.writeShellScriptBin "serve" ''
+          function run {
+            cp src/index.html docs/index.html
+            rm -rf docs/assets/*
+            cp -r src/assets/* docs/assets/
+            ${pkgs.tailwindcss}/bin/tailwindcss -i src/style.css -o docs/style.css -m &
+          }
+          run
+          function run_on_change {
+            ${pkgs.inotify-tools}/bin/inotifywait -e modify -e move -e create -e delete -r src/. | while read -r directory events file; do
+              run
+            done
+          }
+          run_on_change &
 
-              function run_on_change {
-                ${pkgs.inotify-tools}/bin/inotifywait -e modify -e move -e create -e delete -r src/. | while read -r directory events file; do
-                  cp src/index.html docs/index.html
-                  #rm docs/assets/*
-                  #cp src/assets/* docs/assets/
-                  ${pkgs.tailwindcss}/bin/tailwindcss -i src/style.css -o docs/style.css -m &
-                done
-              }
-              run_on_change &
-
-              ${pkgs.static-web-server}/bin/static-web-server -p 8081 -d docs/.
-            EOF
-            chmod +x $out/bin/serve
-            wrapProgram $out/bin/serve \
-              --prefix PATH : ${
-                pkgs.lib.makeBinPath [
-                  pkgs.tailwindcss
-                  pkgs.inotify-tools
-                  pkgs.static-web-server
-                ]
-              }
-          '';
-        };
+          ${pkgs.static-web-server}/bin/static-web-server -p 8084 -d docs/.
+        '';
 
         devShells.default = pkgs.mkShell {
           #packages = with pkgs; [ static-web-server ];
