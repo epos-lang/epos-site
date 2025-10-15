@@ -1,4 +1,4 @@
-name: CI
+name: Deploy
 on:
   push:
     branches: [ "master" ]
@@ -17,3 +17,17 @@ jobs:
         run: nix build
       - name: Build docs folder
         run: ./result/bin/build
+  deploy:
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    runs-on: ubuntu-latest
+    #needs: jekyll-build
+    environment:
+      name: github-pages
+      url: ${{steps.deployment.outputs.page_url}}
+    steps:
+      - name: Deploy artifact
+        id: deployment
+        uses: actions/deploy-pages@v4
