@@ -52,6 +52,10 @@ a {
   @apply text-gray-300 no-underline cursor-pointer;
 }
 
+ul {
+  @apply list-none;
+}
+
 i {
   @apply text-red-300;
   font-family: 'Junicode Italic', serif;
