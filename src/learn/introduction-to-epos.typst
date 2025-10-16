@@ -48,7 +48,7 @@ Epos supports single-line and nestable multi-line comments:
 To create, compile and run an Epos program:
 
 ```bash
-github:epos-lang/epos -- init hello-world
+nix github:epos-lang/epos -- init hello-world
 cd hello-world
 epos -r hello-world/main.epos
 ```
