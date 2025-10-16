@@ -15,11 +15,10 @@ Epos is a functional, statically typed programming language that compiles to LLV
 Your first Epos program:
 
 ```elixir
-fn hello(): string
-    "Hello World!"
+fn hello()
+    print("Hello World!")
 end
-
-print(hello())
+hello()
 ```
 
 == Comments
@@ -40,8 +39,10 @@ Epos supports single-line and nestable multi-line comments:
 == Basic Syntax Rules
 
 - *Naming*: Currently, case agnostic. You can use camel case, snake case, kabab case, etc. //Use kebab-case for identifiers (`multi-word-name`)
-- *Visibility*: Everything is private by default, use `*` after a name to make public
+- *Visibility*: Everything is private by default, use "\*" after a name to make public
 - *Immutability*: Variables are immutable
+- *Uniform Funciton Call Syntax*: Functions can be called with like this `a.some-func(b)` and like this `some-func(a, b)`
+- *Balanced Multi-line String Literals*: Strings can be multiline with `[[` and `]]`
 
 == Getting Started
 

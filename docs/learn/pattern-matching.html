@@ -66,16 +66,7 @@ class="sourceCode elixir"><code class="sourceCode elixir"><span id="cb3-1"><a hr
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="va">status:</span> string <span class="op">=</span> match age <span class="op">&gt;=</span> <span class="dv">18</span> then</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cn">true</span> <span class="op">=&gt;</span> <span class="st">&quot;adult&quot;</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cn">false</span> <span class="op">=&gt;</span> <span class="st">&quot;minor&quot;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># More complex boolean matching</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="va">score:</span> int <span class="op">=</span> <span class="dv">85</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="va">grade:</span> string <span class="op">=</span> match score then</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    _ <span class="kw">when</span> score <span class="op">&gt;=</span> <span class="dv">90</span> <span class="op">=&gt;</span> <span class="st">&quot;A&quot;</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    _ <span class="kw">when</span> score <span class="op">&gt;=</span> <span class="dv">80</span> <span class="op">=&gt;</span> <span class="st">&quot;B&quot;</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    _ <span class="kw">when</span> score <span class="op">&gt;=</span> <span class="dv">70</span> <span class="op">=&gt;</span> <span class="st">&quot;C&quot;</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">=&gt;</span> <span class="st">&quot;F&quot;</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div>
 <h2>List Pattern Matching</h2>
 <p>Match on list structure and contents:</p>
 <div class="sourceCode" id="cb4"><pre
@@ -175,51 +166,40 @@ class="sourceCode elixir"><code class="sourceCode elixir"><span id="cb8-1"><a hr
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="cn">false</span> <span class="op">=&gt;</span> n <span class="op">*</span> factorial<span class="fu">(</span>n <span class="op">-</span> <span class="dv">1</span><span class="fu">)</span></span>
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div>
-<h2>Guards in Pattern Matching</h2>
-<p>Use when clauses for additional conditions:</p>
-<div class="sourceCode" id="cb9"><pre
-class="sourceCode elixir"><code class="sourceCode elixir"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> categorize<span class="op">-</span>number<span class="fu">(</span><span class="va">n:</span> int<span class="fu">)</span>: string</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    match n then</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        _ <span class="kw">when</span> n <span class="op">&lt;</span> <span class="dv">0</span> <span class="op">=&gt;</span> <span class="st">&quot;negative&quot;</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        <span class="dv">0</span> <span class="op">=&gt;</span> <span class="st">&quot;zero&quot;</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        _ <span class="kw">when</span> n<span class="op"> % </span><span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span> <span class="op">=&gt;</span> <span class="st">&quot;positive even&quot;</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        _ <span class="kw">when</span> n<span class="op"> % </span><span class="dv">2</span> <span class="op">==</span> <span class="dv">1</span> <span class="op">=&gt;</span> <span class="st">&quot;positive odd&quot;</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        _ <span class="op">=&gt;</span> <span class="st">&quot;unknown&quot;</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div>
 <h2>Expression-Based Control</h2>
 <p>Since match is an expression, it can be used anywhere a value is
 expected:</p>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode elixir"><code class="sourceCode elixir"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In variable assignment</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>tax<span class="op">-</span><span class="va">rate:</span> float <span class="op">=</span> match income then</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    _ <span class="kw">when</span> income <span class="op">&lt;</span> <span class="dv">10000</span> <span class="op">=&gt;</span> <span class="fl">0.0</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    _ <span class="kw">when</span> income <span class="op">&lt;</span> <span class="dv">50000</span> <span class="op">=&gt;</span> <span class="fl">0.15</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">=&gt;</span> <span class="fl">0.25</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># In function arguments</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>print<span class="fu">(</span>match weather then</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;sunny&quot;</span> <span class="op">=&gt;</span> <span class="st">&quot;Wear sunglasses!&quot;</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;rainy&quot;</span> <span class="op">=&gt;</span> <span class="st">&quot;Bring an umbrella!&quot;</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">=&gt;</span> <span class="st">&quot;Have a nice day!&quot;</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span><span class="fu">)</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co"># As return values</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> get<span class="op">-</span>discount<span class="fu">(</span>customer<span class="op">-</span><span class="va">type:</span> string<span class="fu">)</span>: float</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    match customer<span class="op">-</span>type then</span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;premium&quot;</span> <span class="op">=&gt;</span> <span class="fl">0.20</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;regular&quot;</span> <span class="op">=&gt;</span> <span class="fl">0.10</span></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;new&quot;</span> <span class="op">=&gt;</span> <span class="fl">0.05</span></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>        _ <span class="op">=&gt;</span> <span class="fl">0.0</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode elixir"><code class="sourceCode elixir"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In variable assignment</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>tax<span class="op">-</span><span class="va">rate:</span> float <span class="op">=</span> match income then</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">10000</span> <span class="op">=&gt;</span> <span class="fl">0.0</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">50000</span> <span class="op">=&gt;</span> <span class="fl">0.15</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">=&gt;</span> <span class="fl">0.25</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># In function arguments</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>print<span class="fu">(</span>match weather then</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;sunny&quot;</span> <span class="op">=&gt;</span> <span class="st">&quot;Wear sunglasses!&quot;</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;rainy&quot;</span> <span class="op">=&gt;</span> <span class="st">&quot;Bring an umbrella!&quot;</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">=&gt;</span> <span class="st">&quot;Have a nice day!&quot;</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span><span class="fu">)</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co"># As return values</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> get<span class="op">-</span>discount<span class="fu">(</span>customer<span class="op">-</span><span class="va">type:</span> string<span class="fu">)</span>: float</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    match customer<span class="op">-</span>type then</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;premium&quot;</span> <span class="op">=&gt;</span> <span class="fl">0.20</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;regular&quot;</span> <span class="op">=&gt;</span> <span class="fl">0.10</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;new&quot;</span> <span class="op">=&gt;</span> <span class="fl">0.05</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>        _ <span class="op">=&gt;</span> <span class="fl">0.0</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div>
 <p>Pattern matching is the primary control flow mechanism in Epos,
 replacing traditional if-else statements and loops with more expressive
 and functional constructs.</p>
+<p>Next, learn about advanced features in Epos.</p>
 
     
-      <a href="/learn/records-and-data-structures">→</a>
+      <a href="/learn/advanced-features">Next page →</a>
     
   </main>
 </body>

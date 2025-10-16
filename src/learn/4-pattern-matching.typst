@@ -39,15 +39,6 @@ status: string = match age >= 18 then
     true => "adult"
     false => "minor"
 end
-
-# More complex boolean matching
-score: int = 85
-grade: string = match score then
-    _ when score >= 90 => "A"
-    _ when score >= 80 => "B"
-    _ when score >= 70 => "C"
-    _ => "F"
-end
 ```
 
 == List Pattern Matching
@@ -168,22 +159,6 @@ fn factorial(n: int): int
 end
 ```
 
-== Guards in Pattern Matching
-
-Use when clauses for additional conditions:
-
-```elixir
-fn categorize-number(n: int): string
-    match n then
-        _ when n < 0 => "negative"
-        0 => "zero"
-        _ when n % 2 == 0 => "positive even"
-        _ when n % 2 == 1 => "positive odd"
-        _ => "unknown"
-    end
-end
-```
-
 == Expression-Based Control
 
 Since match is an expression, it can be used anywhere a value is expected:
@@ -191,8 +166,8 @@ Since match is an expression, it can be used anywhere a value is expected:
 ```elixir
 # In variable assignment
 tax-rate: float = match income then
-    _ when income < 10000 => 0.0
-    _ when income < 50000 => 0.15
+    10000 => 0.0
+    50000 => 0.15
     _ => 0.25
 end
 
@@ -215,3 +190,5 @@ end
 ```
 
 Pattern matching is the primary control flow mechanism in Epos, replacing traditional if-else statements and loops with more expressive and functional constructs.
+
+Next, learn about advanced features in Epos.

@@ -4,9 +4,9 @@ Epos is statically typed with type inference, making it both safe and expressive
 
 == Variable Declaration
 
-Variables in Epos are immutable by default:
+Variables in Epos are immutable:
 
-```epos
+```elixir
 name: string = "Alice"
 age: int = 25
 height: float = 5.8
@@ -15,8 +15,8 @@ is-active: bool = true
 
 You can also use type inference:
 
-```epos
-name := "Alice"        # inferred as string
+```elixir
+name := "Alice"       # inferred as string
 age := 25             # inferred as int
 height := 5.8         # inferred as float
 is-active := true     # inferred as bool
@@ -35,10 +35,10 @@ is-active := true     # inferred as bool
 
 Embed expressions in strings using `#{}`:
 
-```epos
-name: string = "World"
+```elixir
+name := "World"
 message: string = "Hello #{name}!"
-count: int = 42
+count := 42
 status: string = "There are #{count} items"
 ```
 
@@ -46,7 +46,7 @@ status: string = "There are #{count} items"
 
 Lists are homogeneous collections:
 
-```epos
+```elixir
 numbers: list(int) = {1, 2, 3, 4, 5}
 names: list(string) = {"Alice", "Bob", "Charlie"}
 flags: list(bool) = {true, false, true}
@@ -55,18 +55,30 @@ flags: list(bool) = {true, false, true}
 matrix: list(list(int)) = {{1, 2}, {3, 4}, {5, 6}}
 ```
 
+Ranges are also supported:
+
+```elixir
+range: list(int) = 1..10  # 1, 2, 3, ..., 10
+```
+
+Get the length of a list using `len()`:
+
+```elixir
+len({1, 2, 3}) # => 3
+```
+
 Access list elements using `elem()`:
 
-```epos
+```elixir
 first: int = elem(numbers, 0)      # Gets first element
-last: int = elem(numbers, len(numbers) - 1)  # Gets last element
+last: int = numbers.elem(len(numbers) - 1)  # Gets last element
 ```
 
 === Records
 
 Records are structured data types:
 
-```epos
+```elixir
 record Person
   name: string
   age: int
@@ -88,7 +100,7 @@ print(person["age"])    # Bracket notation
 
 Create aliases for complex types:
 
-```epos
+```elixir
 type UserId = int
 type EmailAddress = string
 type UserList = list(Person)
@@ -97,11 +109,22 @@ user-id: UserId = 123
 emails: list(EmailAddress) = {"alice@example.com", "bob@example.com"}
 ```
 
+== Union Types
+
+Union types allow you to combine different types:
+
+```elixir
+type UserId = int | string
+
+user-id: UserId = 123
+user-id: UserId = "alice@example.com"
+```
+
 == Generics
 
 Epos supports generic types for reusable code:
 
-```epos
+```elixir
 # Generic function that works with any type
 fn identity(value: t): t
   value
@@ -121,17 +144,17 @@ coord: Pair(int, int) = @{
 
 == Visibility
 
-By default, everything is public. Use `priv` for private declarations:
+By default, everything is private. Use "\*" for public declarations:
 
-```epos
-priv secret-key: string = "abc123"    # Private variable
-name: string = "public-name"          # Public variable
+```elixir
+secret-key: string = "abc123"    # Private variable
+name*: string = "public-name"    # Public variable
 
-priv fn internal-helper(): int
+fn internal-helper(): int
   42
 end
 
-fn public-function(): int
+fn public-function*(): int
   internal-helper()
 end
 ```
