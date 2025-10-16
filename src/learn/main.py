@@ -16,6 +16,11 @@ def render_file(path):
         f.write(full_content)
 
 
+# Delete all html files in the html folder
+for path in os.listdir('src/learn/html'):
+    if path.endswith('.html'):
+        os.remove('html/' + path)
+
 typst_files = [path for path in os.listdir('.') if path.endswith('.typst')]
 for path in typst_files:
     render_file(path)
