@@ -99,10 +99,3 @@ b {
   @apply flex gap-2 justify-center;
 }
 
-.install {
-  @apply btn;
-}
-
-.docs {
-  @apply btn;
-}

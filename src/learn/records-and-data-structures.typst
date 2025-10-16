@@ -1,0 +1,277 @@
+= Records and Data Structures
+
+Epos provides powerful data structures including records, lists, and support for generic types.
+
+== Record Declaration
+
+Records define structured data types with named fields:
+
+```epos
+record Person
+  name: string
+  age: int
+  email: string
+end
+
+record Point
+  x: float
+  y: float
+end
+```
+
+== Record Creation
+
+Create record instances using the `@{}` syntax:
+
+```epos
+person: Person = @{
+  name => "Alice",
+  age => 30,
+  email => "alice@example.com"
+}
+
+origin: Point = @{
+  x => 0.0,
+  y => 0.0
+}
+```
+
+== Optional Fields
+
+Fields can be marked as optional with the `?` suffix:
+
+```epos
+record User
+  name: string
+  age: int
+  email?: string        # Optional field
+  phone?: string        # Optional field
+end
+
+user: User = @{
+  name => "Bob",
+  age => 25
+  # email and phone are optional
+}
+```
+
+== Field Access
+
+Access record fields using dot notation or bracket notation:
+
+```epos
+person: Person = @{
+  name => "Alice",
+  age => 30,
+  email => "alice@example.com"
+}
+
+# Dot notation
+name := person.name
+age := person.age
+
+# Bracket notation
+email := person["email"]
+```
+
+== Nested Records
+
+Records can contain other records:
+
+```epos
+record Address
+  street: string
+  city: string
+  zip-code: string
+end
+
+record Employee
+  name: string
+  id: int
+  address: Address
+end
+
+employee: Employee = @{
+  name => "John Doe",
+  id => 1234,
+  address => @{
+    street => "123 Main St",
+    city => "Springfield",
+    zip-code => "12345"
+  }
+}
+
+# Access nested fields
+city := employee.address.city
+street := employee.address["street"]
+```
+
+== Generic Records
+
+Records can be parameterized with generic types:
+
+```epos
+record Pair(a, b)
+  first: a
+  second: b
+end
+
+record Option(t)
+  value?: t
+  has-value: bool
+end
+
+# Usage
+coordinates: Pair(int, int) = @{
+  first => 10,
+  second => 20
+}
+
+name-option: Option(string) = @{
+  value => "Alice",
+  has-value => true
+}
+```
+
+== Lists with Records
+
+Lists can contain records:
+
+```epos
+people: list(Person) = {
+  @{
+    name => "Alice",
+    age => 30,
+    email => "alice@example.com"
+  },
+  @{
+    name => "Bob", 
+    age => 25,
+    email => "bob@example.com"
+  }
+}
+
+# Access list elements
+first-person := elem(people, 0)
+first-name := first-person.name
+```
+
+== Records in Functions
+
+Records work naturally with functions:
+
+```epos
+fn create-person(name: string, age: int, email: string): Person
+  @{
+    name => name,
+    age => age,
+    email => email
+  }
+end
+
+fn get-full-name(person: Person): string
+  person.name
+end
+
+fn is-adult(person: Person): bool
+  person.age >= 18
+end
+
+# Usage
+alice := create-person("Alice Johnson", 28, "alice@example.com")
+is-alice-adult := is-adult(alice)
+```
+
+== Complex Data Structures
+
+Combine records, lists, and generics for complex structures:
+
+```epos
+record Book
+  title: string
+  author: string
+  year: int
+end
+
+record Library
+  name: string
+  books: list(Book)
+  location: Address
+end
+
+library: Library = @{
+  name => "Central Library",
+  location => @{
+    street => "100 Library Ave",
+    city => "Booktown",
+    zip-code => "54321"
+  },
+  books => {
+    @{
+      title => "The Great Gatsby",
+      author => "F. Scott Fitzgerald", 
+      year => 1925
+    },
+    @{
+      title => "To Kill a Mockingbird",
+      author => "Harper Lee",
+      year => 1960
+    }
+  }
+}
+```
+
+== Record Comparison
+
+Records can be compared for equality:
+
+```epos
+person1: Person = @{
+  name => "Alice",
+  age => 30,
+  email => "alice@example.com"
+}
+
+person2: Person = @{
+  name => "Alice",
+  age => 30,
+  email => "alice@example.com"
+}
+
+are-equal: bool = person1 == person2  # true
+```
+
+== Working with Record Lists
+
+Common patterns for working with lists of records:
+
+```epos
+# Filter records by field value
+adults := filter(people, fn(person: Person) => person.age >= 18)
+
+# Transform records
+names := map(people, fn(person: Person) => person.name)
+
+# Process each record
+each(people, fn(person: Person) => print("Hello, #{person.name}!"))
+
+# Find records matching criteria
+fn find-person-by-name(people: list(Person), target-name: string): Option(Person)
+  # Implementation would use pattern matching and recursion
+  # This is a simplified example
+  @{
+    value => elem(people, 0),  # Placeholder
+    has-value => true
+  }
+end
+```
+
+== Best Practices
+
+1. *Use descriptive field names* in kebab-case
+2. *Group related fields* into records
+3. *Mark optional fields* with `?` when appropriate
+4. *Use generic records* for reusable data structures
+5. *Compose records* to build complex data models
+
+Records in Epos provide a clean, type-safe way to structure data while maintaining the functional programming paradigm.

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Records and data structures</title>
+</head>
+<body>
+  <main>
+    <h1>Records and Data Structures</h1>
+<p>Epos provides powerful data structures including records, lists, and
+support for generic types.</p>
+<h2>Record Declaration</h2>
+<p>Records define structured data types with named fields:</p>
+<pre class="epos"><code>record Person
+  name: string
+  age: int
+  email: string
+end
+
+record Point
+  x: float
+  y: float
+end
+</code></pre>
+<h2>Record Creation</h2>
+<p>Create record instances using the <code>@{}</code> syntax:</p>
+<pre class="epos"><code>person: Person = @{
+  name =&gt; &quot;Alice&quot;,
+  age =&gt; 30,
+  email =&gt; &quot;alice@example.com&quot;
+}
+
+origin: Point = @{
+  x =&gt; 0.0,
+  y =&gt; 0.0
+}
+</code></pre>
+<h2>Optional Fields</h2>
+<p>Fields can be marked as optional with the <code>?</code> suffix:</p>
+<pre class="epos"><code>record User
+  name: string
+  age: int
+  email?: string        # Optional field
+  phone?: string        # Optional field
+end
+
+user: User = @{
+  name =&gt; &quot;Bob&quot;,
+  age =&gt; 25
+  # email and phone are optional
+}
+</code></pre>
+<h2>Field Access</h2>
+<p>Access record fields using dot notation or bracket notation:</p>
+<pre class="epos"><code>person: Person = @{
+  name =&gt; &quot;Alice&quot;,
+  age =&gt; 30,
+  email =&gt; &quot;alice@example.com&quot;
+}
+
+# Dot notation
+name := person.name
+age := person.age
+
+# Bracket notation
+email := person[&quot;email&quot;]
+</code></pre>
+<h2>Nested Records</h2>
+<p>Records can contain other records:</p>
+<pre class="epos"><code>record Address
+  street: string
+  city: string
+  zip-code: string
+end
+
+record Employee
+  name: string
+  id: int
+  address: Address
+end
+
+employee: Employee = @{
+  name =&gt; &quot;John Doe&quot;,
+  id =&gt; 1234,
+  address =&gt; @{
+    street =&gt; &quot;123 Main St&quot;,
+    city =&gt; &quot;Springfield&quot;,
+    zip-code =&gt; &quot;12345&quot;
+  }
+}
+
+# Access nested fields
+city := employee.address.city
+street := employee.address[&quot;street&quot;]
+</code></pre>
+<h2>Generic Records</h2>
+<p>Records can be parameterized with generic types:</p>
+<pre class="epos"><code>record Pair(a, b)
+  first: a
+  second: b
+end
+
+record Option(t)
+  value?: t
+  has-value: bool
+end
+
+# Usage
+coordinates: Pair(int, int) = @{
+  first =&gt; 10,
+  second =&gt; 20
+}
+
+name-option: Option(string) = @{
+  value =&gt; &quot;Alice&quot;,
+  has-value =&gt; true
+}
+</code></pre>
+<h2>Lists with Records</h2>
+<p>Lists can contain records:</p>
+<pre class="epos"><code>people: list(Person) = {
+  @{
+    name =&gt; &quot;Alice&quot;,
+    age =&gt; 30,
+    email =&gt; &quot;alice@example.com&quot;
+  },
+  @{
+    name =&gt; &quot;Bob&quot;, 
+    age =&gt; 25,
+    email =&gt; &quot;bob@example.com&quot;
+  }
+}
+
+# Access list elements
+first-person := elem(people, 0)
+first-name := first-person.name
+</code></pre>
+<h2>Records in Functions</h2>
+<p>Records work naturally with functions:</p>
+<pre class="epos"><code>fn create-person(name: string, age: int, email: string): Person
+  @{
+    name =&gt; name,
+    age =&gt; age,
+    email =&gt; email
+  }
+end
+
+fn get-full-name(person: Person): string
+  person.name
+end
+
+fn is-adult(person: Person): bool
+  person.age &gt;= 18
+end
+
+# Usage
+alice := create-person(&quot;Alice Johnson&quot;, 28, &quot;alice@example.com&quot;)
+is-alice-adult := is-adult(alice)
+</code></pre>
+<h2>Complex Data Structures</h2>
+<p>Combine records, lists, and generics for complex structures:</p>
+<pre class="epos"><code>record Book
+  title: string
+  author: string
+  year: int
+end
+
+record Library
+  name: string
+  books: list(Book)
+  location: Address
+end
+
+library: Library = @{
+  name =&gt; &quot;Central Library&quot;,
+  location =&gt; @{
+    street =&gt; &quot;100 Library Ave&quot;,
+    city =&gt; &quot;Booktown&quot;,
+    zip-code =&gt; &quot;54321&quot;
+  },
+  books =&gt; {
+    @{
+      title =&gt; &quot;The Great Gatsby&quot;,
+      author =&gt; &quot;F. Scott Fitzgerald&quot;, 
+      year =&gt; 1925
+    },
+    @{
+      title =&gt; &quot;To Kill a Mockingbird&quot;,
+      author =&gt; &quot;Harper Lee&quot;,
+      year =&gt; 1960
+    }
+  }
+}
+</code></pre>
+<h2>Record Comparison</h2>
+<p>Records can be compared for equality:</p>
+<pre class="epos"><code>person1: Person = @{
+  name =&gt; &quot;Alice&quot;,
+  age =&gt; 30,
+  email =&gt; &quot;alice@example.com&quot;
+}
+
+person2: Person = @{
+  name =&gt; &quot;Alice&quot;,
+  age =&gt; 30,
+  email =&gt; &quot;alice@example.com&quot;
+}
+
+are-equal: bool = person1 == person2  # true
+</code></pre>
+<h2>Working with Record Lists</h2>
+<p>Common patterns for working with lists of records:</p>
+<pre class="epos"><code># Filter records by field value
+adults := filter(people, fn(person: Person) =&gt; person.age &gt;= 18)
+
+# Transform records
+names := map(people, fn(person: Person) =&gt; person.name)
+
+# Process each record
+each(people, fn(person: Person) =&gt; print(&quot;Hello, #{person.name}!&quot;))
+
+# Find records matching criteria
+fn find-person-by-name(people: list(Person), target-name: string): Option(Person)
+  # Implementation would use pattern matching and recursion
+  # This is a simplified example
+  @{
+    value =&gt; elem(people, 0),  # Placeholder
+    has-value =&gt; true
+  }
+end
+</code></pre>
+<h2>Best Practices</h2>
+<ol>
+<li><p><strong>Use descriptive field names</strong> in
+kebab-case</p></li>
+<li><p><strong>Group related fields</strong> into records</p></li>
+<li><p><strong>Mark optional fields</strong> with <code>?</code> when
+appropriate</p></li>
+<li><p><strong>Use generic records</strong> for reusable data
+structures</p></li>
+<li><p><strong>Compose records</strong> to build complex data
+models</p></li>
+</ol>
+<p>Records in Epos provide a clean, type-safe way to structure data
+while maintaining the functional programming paradigm.</p>
+
+  </main>
+</body>
+</html>
