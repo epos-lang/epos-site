@@ -83,7 +83,7 @@ footer {
   text-align: center;
   font-size: 1em;
   padding: 2px 0;
-  @apply text-gray-400 text-sm;
+  @apply text-gray-400 text-lg;
 
   & a {
     @apply text-red-200 no-underline;
