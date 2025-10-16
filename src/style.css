@@ -40,11 +40,11 @@ section {
 
     & h3 {
       @apply text-xl md:text-2xl text-gray-300;
-      font-family: monospace;
     }
 
     & pre {
       @apply shadow-lg shadow-gray-900 selection:bg-gray-200 selection:text-gray-900;
+      font-family: monospace;
 
       & code {
         @apply rounded-md;
