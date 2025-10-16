@@ -24,6 +24,15 @@
   @apply selection:bg-red-200 selection:text-red-900;
 }
 
+pre {
+  @apply shadow-xl selection:bg-gray-200 selection:text-gray-900;
+  font-family: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+
+  & code {
+    @apply rounded-md;
+  }
+}
+
 body {
   @apply bg-red-900;
 }
