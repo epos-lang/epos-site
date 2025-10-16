@@ -27,7 +27,6 @@
 
 
 * {
-  font-family: 'Junicode', serif;
   @apply selection:bg-red-200 selection:text-red-900;
 }
 
@@ -42,6 +41,7 @@ pre {
 
 body {
   @apply bg-red-900;
+  font-family: 'Junicode', serif;
 }
 
 main {

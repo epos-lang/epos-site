@@ -26,11 +26,11 @@
 }
 
 * {
-  font-family: 'Junicode', serif;
   @apply selection:bg-red-200 selection:text-red-900;
 }
 
 body {
+  font-family: 'Junicode', serif;
   @apply bg-red-900;
 }
 
