@@ -4,7 +4,7 @@ import os
 
 
 def render_toc(pages):
-    template = jinja2.Template(open('learn.jinja').read())
+    template = jinja2.Template(open('toc.jinja').read())
     full_content = template.render(pages=pages)
     with open("html/learn.html", 'w') as f:
         f.write(full_content)
@@ -21,7 +21,7 @@ def render_file(path):
     full_content = template(title, path.replace("typst", "pdf"), content)
     with open("html/" + path.replace("typst", "html"), 'w') as f:
         f.write(full_content)
-    return {"title": title, "url": path.replace(".html", "")}
+    return {"title": title, "url": path.replace(".typst", "")}
 
 
 # Delete all html files in the html folder
@@ -33,4 +33,5 @@ typst_files = [path for path in os.listdir('.') if path.endswith('.typst')]
 pages = []
 for path in typst_files:
     pages.append(render_file(path))
+print(pages)
 render_toc(pages)
