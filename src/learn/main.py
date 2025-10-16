@@ -12,11 +12,10 @@ def render_file(path):
     content = pypandoc.convert_file(path, 'html5')
     title = path.split('.')[0].replace('-', ' ').capitalize()
     full_content = template(title, path.replace("typst", "pdf"), content)
-    with open(path.replace("typst", "html"), 'w') as f:
+    with open("html/" + path.replace("typst", "html"), 'w') as f:
         f.write(full_content)
 
 
-# Runs render_file on all "typst" files in the current directory
 typst_files = [path for path in os.listdir('.') if path.endswith('.typst')]
 for path in typst_files:
     render_file(path)

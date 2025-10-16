@@ -4,9 +4,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Variables and types</title>
+  <meta name="title" content="Epos Programming Language Docs — Variables and types">
+  <meta name="description" content="Variables and types" />
+
+  <!-- Code highlighting -->
+  <link rel="stylesheet" href="assets/highlight.js/highlight.min.css">
+  <link rel="stylesheet" href="assets/highlight.js/rose-pine-moon.css">
+  <script src="assets/highlight.js/highlight.min.js"></script>
+  <script src="assets/highlight.js/elixir.min.js"></script>
+  <script>hljs.highlightAll();</script>
+
+  <!-- Font preloads -->
+  <link rel="preload" href="assets/fonts/junicode/Junicode.ttf" as="font" type="font/ttf" crossorigin />
+  <link rel="preload" href="assets/fonts/junicode/Junicode-Bold.ttf" as="font" type="font/ttf" crossorigin />
+  <link rel="preload" href="assets/fonts/junicode/Junicode-BoldItalic.ttf" as="font" type="font/ttf" crossorigin />
+  <link rel="preload" href="assets/fonts/junicode/Junicode-Italic.ttf" as="font" type="font/ttf" crossorigin />
+
+  <link href="style.css?v=5" rel="stylesheet">
+  <style>
+    code.elixir {
+      @apply language-elixir;
+    }
+    code.bash {
+      @apply language-bash;
+    }
+  </style>
 </head>
 <body>
   <main>
+    <div>
+      <p>
+        This page is available as PDF <a href="/learn/variables-and-types.pdf">here</a>.
+      </p>
+    </div>
     <h1>Variables and Types</h1>
 <p>Epos is statically typed with type inference, making it both safe and
 expressive.</p>

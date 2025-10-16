@@ -20,7 +20,7 @@
 
           cp src/learn/*.pdf docs/learn/
           ${learn.packages.${system}.default}/bin/build-docs
-          cp src/learn/*.html docs/learn/
+          cp src/learn/html/*.html docs/learn/
 
           ${pkgs.tailwindcss}/bin/tailwindcss -i src/style.css -o docs/style.css -m
         '';
