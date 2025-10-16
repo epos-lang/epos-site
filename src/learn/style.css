@@ -44,6 +44,14 @@ h3 {
   @apply text-xl md:text-2xl text-gray-300;
 }
 
+p {
+  @apply text-gray-400;
+}
+
+a {
+  @apply text-gray-300 no-underline cursor-pointer;
+}
+
 i {
   @apply text-red-300;
   font-family: 'Junicode Italic', serif;
