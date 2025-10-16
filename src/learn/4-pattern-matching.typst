@@ -6,7 +6,7 @@ Pattern matching in Epos replaces traditional if-else statements and provides po
 
 The fundamental syntax uses `match ... then ... end`:
 
-```epos
+```elixir
 number: int = 42
 message: string = match number then
     0 => "zero"
@@ -20,7 +20,7 @@ end
 
 Match against multiple possible values:
 
-```epos
+```elixir
 day: int = 3
 day-type: string = match day then
     1, 2, 3, 4, 5 => "weekday"
@@ -33,7 +33,7 @@ end
 
 Pattern match on boolean conditions:
 
-```epos
+```elixir
 age: int = 20
 status: string = match age >= 18 then
     true => "adult"
@@ -54,7 +54,7 @@ end
 
 Match on list structure and contents:
 
-```epos
+```elixir
 numbers: list(int) = {1, 2, 3}
 empty: list(int) = {}
 
@@ -79,7 +79,7 @@ end
 
 Since Epos doesn't have traditional loops, use pattern matching with recursion:
 
-```epos
+```elixir
 fn countdown(n: int)
     print(n)
     match n <= 0 then
@@ -103,7 +103,7 @@ end
 
 Match on record structures and fields:
 
-```epos
+```elixir
 record Status
     code: int
     message: string
@@ -129,7 +129,7 @@ result := handle-response(response)
 
 Pattern matching can be nested for complex logic:
 
-```epos
+```elixir
 record User
     name: string
     age: int
@@ -151,7 +151,7 @@ end
 
 Use pattern matching to create different behaviors:
 
-```epos
+```elixir
 fn fibonacci(n: int): int
     match n then
         0 => 0
@@ -172,7 +172,7 @@ end
 
 Use when clauses for additional conditions:
 
-```epos
+```elixir
 fn categorize-number(n: int): string
     match n then
         _ when n < 0 => "negative"
@@ -188,7 +188,7 @@ end
 
 Since match is an expression, it can be used anywhere a value is expected:
 
-```epos
+```elixir
 # In variable assignment
 tax-rate: float = match income then
     _ when income < 10000 => 0.0

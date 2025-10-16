@@ -8,7 +8,7 @@ This guide covers advanced Epos features including generics, higher-order progra
 
 Create functions that work with multiple generic types:
 
-```epos
+```elixir
 fn zip(first: list(a), second: list(b)): list(Pair(a, b))
   # Implementation would recursively build pairs
   {}  # Placeholder
@@ -26,7 +26,7 @@ end
 
 While Epos doesn't have explicit constraints, patterns emerge for type-safe generic code:
 
-```epos
+```elixir
 # Generic container with operations
 record Container(t)
   items: list(t)
@@ -45,7 +45,7 @@ end
 
 === Matching with Complex Conditions
 
-```epos
+```elixir
 record Result(t, e)
   value?: t
   error?: e
@@ -68,7 +68,7 @@ end
 
 === Pattern Matching with Deconstruction
 
-```epos
+```elixir
 # Match and extract from complex structures
 fn process-request(request: HttpRequest): HttpResponse
   match request.method then
@@ -87,7 +87,7 @@ end
 
 === Function Composition and Chaining
 
-```epos
+```elixir
 # Function composition
 fn compose(f: fn(b) => c, g: fn(a) => b): fn(a) => c
   fn(x: a) => f(g(x))
@@ -107,7 +107,7 @@ result := numbers
 
 === Currying and Partial Application
 
-```epos
+```elixir
 # Curried functions
 fn curried-add(a: int): fn(int) => int
   fn(b: int) => a + b
@@ -129,7 +129,7 @@ is-valid := validate-password("mypassword")
 
 === Custom List Operations
 
-```epos
+```elixir
 # Take first n elements
 fn take(items: list(t), count: int): list(t)
   match count <= 0 || len(items) == 0 then
@@ -158,7 +158,7 @@ end
 
 === List Processing Pipelines
 
-```epos
+```elixir
 # Complex data processing pipeline
 fn process-data(raw-data: list(string)): list(ProcessedRecord)
   raw-data
@@ -173,7 +173,7 @@ end
 
 === Option Type Pattern
 
-```epos
+```elixir
 record Option(t)
   value?: t
   has-value: bool
@@ -202,7 +202,7 @@ end
 
 === Result Type Pattern
 
-```epos
+```elixir
 record Result(t, e)
   value?: t
   error?: e
@@ -228,7 +228,7 @@ end
 
 === Namespace Patterns
 
-```epos
+```elixir
 # Group related functions using record-like syntax
 math-utils := @{
   add => fn(a: int, b: int): int => a + b,
@@ -249,7 +249,7 @@ squared := math-utils.power(4, 2)
 
 === Tail Recursion
 
-```epos
+```elixir
 # Tail-recursive factorial
 fn factorial-tail(n: int, acc: int = 1): int
   match n <= 1 then
@@ -269,7 +269,7 @@ end
 
 === Lazy Evaluation Simulation
 
-```epos
+```elixir
 # Lazy computation using functions
 record Lazy(t)
   compute: fn() => t

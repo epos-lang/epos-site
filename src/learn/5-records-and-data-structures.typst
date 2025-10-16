@@ -6,7 +6,7 @@ Epos provides powerful data structures including records, lists, and support for
 
 Records define structured data types with named fields:
 
-```epos
+```elixir
 record Person
   name: string
   age: int
@@ -23,7 +23,7 @@ end
 
 Create record instances using the `@{}` syntax:
 
-```epos
+```elixir
 person: Person = @{
   name => "Alice",
   age => 30,
@@ -40,7 +40,7 @@ origin: Point = @{
 
 Fields can be marked as optional with the `?` suffix:
 
-```epos
+```elixir
 record User
   name: string
   age: int
@@ -59,7 +59,7 @@ user: User = @{
 
 Access record fields using dot notation or bracket notation:
 
-```epos
+```elixir
 person: Person = @{
   name => "Alice",
   age => 30,
@@ -78,7 +78,7 @@ email := person["email"]
 
 Records can contain other records:
 
-```epos
+```elixir
 record Address
   street: string
   city: string
@@ -110,7 +110,7 @@ street := employee.address["street"]
 
 Records can be parameterized with generic types:
 
-```epos
+```elixir
 record Pair(a, b)
   first: a
   second: b
@@ -137,7 +137,7 @@ name-option: Option(string) = @{
 
 Lists can contain records:
 
-```epos
+```elixir
 people: list(Person) = {
   @{
     name => "Alice",
@@ -160,7 +160,7 @@ first-name := first-person.name
 
 Records work naturally with functions:
 
-```epos
+```elixir
 fn create-person(name: string, age: int, email: string): Person
   @{
     name => name,
@@ -186,7 +186,7 @@ is-alice-adult := is-adult(alice)
 
 Combine records, lists, and generics for complex structures:
 
-```epos
+```elixir
 record Book
   title: string
   author: string
@@ -225,7 +225,7 @@ library: Library = @{
 
 Records can be compared for equality:
 
-```epos
+```elixir
 person1: Person = @{
   name => "Alice",
   age => 30,
@@ -245,7 +245,7 @@ are-equal: bool = person1 == person2  # true
 
 Common patterns for working with lists of records:
 
-```epos
+```elixir
 # Filter records by field value
 adults := filter(people, fn(person: Person) => person.age >= 18)
 

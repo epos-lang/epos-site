@@ -6,7 +6,7 @@ Functions are first-class values in Epos, supporting higher-order functions, gen
 
 Functions use the `fn` keyword with explicit return types:
 
-```epos
+```elixir
 fn add(a: int, b: int): int
     a + b
 end
@@ -25,7 +25,7 @@ end
 
 Functions are values and can be passed around:
 
-```epos
+```elixir
 # Function type syntax: fn(param_types) => return_type
 fn higher-order(f: fn(int, int) => int, x: int, y: int): int
     f(x, y)
@@ -39,7 +39,7 @@ result: int = higher-order(add, 5, 3)  # result is 8
 
 Create anonymous functions using lambda syntax:
 
-```epos
+```elixir
 # Lambda with explicit type
 square := fn(x: int) => x * x
 
@@ -52,7 +52,7 @@ squared := map(numbers, fn(x: int) => x * x)
 
 Functions can have default parameter values:
 
-```epos
+```elixir
 fn greet-with-title(name: string, title: string = "Mr."): string
     "Hello, #{title} #{name}!"
 end
@@ -68,7 +68,7 @@ greeting2 := greet-with-title("Smith", "Dr.") # "Hello, Dr. Smith!"
 
 Write functions that work with any type:
 
-```epos
+```elixir
 fn identity(value: t): t
     value
 end
@@ -90,7 +90,7 @@ coords := make-pair(10, 20)
 
 Functions that take or return other functions:
 
-```epos
+```elixir
 # Function that returns a function
 fn make-adder(n: int): fn(int) => int
     fn(x: int) => x + n
@@ -109,7 +109,7 @@ end
 
 Functions can call themselves:
 
-```epos
+```elixir
 fn factorial(n: int): int
     match n <= 1 then
         true => 1
@@ -129,7 +129,7 @@ end
 
 Epos provides several built-in functions for working with lists:
 
-```epos
+```elixir
 numbers: list(int) = {1, 2, 3, 4, 5}
 
 # Map: transform each element
@@ -152,7 +152,7 @@ first := elem(numbers, 0)
 
 Functions that don't return a value use `void`:
 
-```epos
+```elixir
 fn log-message(message: string)
     print("LOG: #{message}")
 end
@@ -166,7 +166,7 @@ end
 
 Make complex function types more readable:
 
-```epos
+```elixir
 type Predicate(t) = fn(t) => bool
 type Transform(a, b) = fn(a) => b
 type BinaryOp(t) = fn(t, t) => t

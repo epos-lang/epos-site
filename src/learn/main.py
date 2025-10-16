@@ -17,12 +17,13 @@ def template(title, pdf, content):
 
 def render_file(path):
     content = pypandoc.convert_file(path, 'html5')
-    raw_path = path.split('.')[0]
+    raw_path = path.split('.')[0].split('-')[1]
+    order = int(path.split('.')[0].split('-')[0])
     title = raw_path.replace('-', ' ').capitalize().replace("epos", "Epos")
     full_content = template(title, path.replace("typst", "pdf"), content)
     with open("html/" + path.replace("typst", "html"), 'w') as f:
         f.write(full_content)
-    return {"title": title, "url": raw_path}
+    return {"title": title, "url": raw_path, "order": order}
 
 
 # Delete all html files in the html folder
@@ -34,4 +35,5 @@ typst_files = [path for path in os.listdir('.') if path.endswith('.typst')]
 pages = []
 for path in typst_files:
     pages.append(render_file(path))
-render_toc(pages)
+pages_in_order = sorted(pages, key=lambda page: page['order'])
+render_toc(pages_in_order)
