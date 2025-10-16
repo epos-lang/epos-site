@@ -42,14 +42,16 @@
 
     <section class="example-code">
       <h3>Example code:</h3>
-      <pre><code>fn each(lst: list(t), fun: fn(t), index: int = 0)
+      <pre><code>(#
+  Simple program
+#)
+fn each(lst: list(t), fun: fn(t), index: int = 0)
   lst.elem(index).fun()
   match index < len(lst) - 1 then
     true => each(lst, fun, index + 1)
   end
 end
 
-# A book record
 record Book
   title: string
   author: string
