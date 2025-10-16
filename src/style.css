@@ -43,7 +43,8 @@ section {
     }
 
     & pre {
-      @apply shadow-lg selection:bg-gray-200 selection:text-gray-900;
+      --tw-shadow-color: rgba(0, 0, 0, 0.1);
+      @apply shadow-xl selection:bg-gray-200 selection:text-gray-900;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
 
       & code {
