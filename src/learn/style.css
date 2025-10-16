@@ -78,3 +78,20 @@ b {
   @apply text-red-300 font-bold;
   font-family: 'Junicode Bold', serif;
 }
+
+footer {
+  text-align: center;
+  font-size: 1em;
+  padding: 2px 0;
+  @apply text-gray-400 text-sm;
+
+  & a {
+    @apply text-red-200 no-underline;
+    font-weight: bold;
+    text-decoration: none;
+
+    &:hover {
+      @apply text-red-300;
+    }
+  }
+}
