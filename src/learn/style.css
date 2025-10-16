@@ -30,12 +30,11 @@
   @apply selection:bg-red-200 selection:text-red-900;
 }
 
-pre {
-  @apply rounded-md shadow-xl selection:bg-gray-200 selection:text-gray-900;
-}
 code {
   font-family: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+  @apply rounded-md shadow-xl selection:bg-gray-200 selection:text-gray-900;
 }
+
 
 body {
   @apply bg-red-900;
