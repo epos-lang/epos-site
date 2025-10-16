@@ -94,6 +94,10 @@ b {
   padding: 0.3em 0.8em;
   margin: 0 0.3em;
   @apply text-red-100 text-lg md:text-3xl no-underline flex gap-1 inline-block text-center border-2 border-none cursor-pointer items-center justify-center rounded-lg bg-[linear-gradient(-225deg,rgba(138,62,62,0.5),rgba(163,82,82,0.5))] shadow-[rgba(250,160,160,0.4)]  hover:shadow-[rgba(163,82,82,0.4)] dark:hover:shadow-[rgba(250,160,160,0.4)];
+
+  & svg {
+    @apply fill-red-100 stroke-red-100;
+  }
 }
 
 .btns {
