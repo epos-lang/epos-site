@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ title }}</title>
-  <meta name="title" content="Epos Programming Language Docs — {{ title }}">
-  <meta name="description" content="{{ title }}" />
+  <title>{{ page.title }}</title>
+  <meta name="title" content="Epos Programming Language Docs — {{ page.title }}">
+  <meta name="description" content="{{ page.title }}" />
 
   <!-- Code highlighting -->
   <link rel="stylesheet" href="/assets/highlight.js/highlight.min.css">
@@ -34,10 +34,13 @@
   <main>
     <div>
       <p>
-        This page is available as PDF <a href="/learn/{{ pdf }}">here</a>.
+        This page is available as PDF <a href="/learn/{{ page.raw_path }}.pdf">here</a>.
       </p>
     </div>
-    {{ content }}
+    {{ page.content }}
+    {% if page.next_site %}
+      <a href="/learn/{{ page.next_site }}">→</a>
+    {% endif %}
   </main>
 </body>
 </html>

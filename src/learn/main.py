@@ -10,30 +10,39 @@ def render_toc(pages):
         f.write(full_content)
 
 
-def template(title, pdf, content):
+def template(page):
     template = jinja2.Template(open('template.jinja').read())
-    return template.render(title=title, pdf=pdf, content=content)
+    return template.render(page=page)
 
 
-def render_file(path):
+def get_page_dict(path):
     content = pypandoc.convert_file(path, 'html5')
     raw_path = '-'.join(path.split('.')[0].split('-')[1:])
     order = int(path.split('.')[0].split('-')[0])
     title = raw_path.replace('-', ' ').capitalize().replace("epos", "Epos")
-    full_content = template(title, path.replace("typst", "pdf"), content)
-    with open("html/" + path.replace("typst", "html"), 'w') as f:
+    return {
+        "title": title,
+        "raw_path": raw_path,
+        "order": order,
+        "content": content
+    }
+
+
+def render_file(page):
+    full_content = template(page)
+    with open("html/" + page['raw_path'] + ".html", 'w') as f:
         f.write(full_content)
-    return {"title": title, "url": raw_path, "order": order}
 
-
-# Delete all html files in the html folder
-# for path in os.listdir('src/learn/html'):
-#    if path.endswith('.html'):
-#        os.remove('html/' + path)
 
 typst_files = [path for path in os.listdir('.') if path.endswith('.typst')]
 pages = []
 for path in typst_files:
-    pages.append(render_file(path))
+    pages.append(get_page_dict(path))
+
 pages_in_order = sorted(pages, key=lambda page: page['order'])
+
+for index, page in enumerate(pages_in_order):
+    if index < len(pages_in_order) - 1:
+        page['next_site'] = pages_in_order[index + 1]['raw_path']
+    render_file(page)
 render_toc(pages_in_order)

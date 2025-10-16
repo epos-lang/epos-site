@@ -43,140 +43,143 @@ functions, generics, and default parameters.</p>
 <h2>Basic Function Syntax</h2>
 <p>Functions use the <code>fn</code> keyword with explicit return
 types:</p>
-<pre class="epos"><code>fn add(a: int, b: int): int
-    a + b
-end
-
-fn greet(name: string): string
-    &quot;Hello, #{name}!&quot;
-end
-
-# Functions have implicit return - last expression is returned
-fn multiply(x: int, y: int): int
-    x * y
-end
-</code></pre>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode elixir"><code class="sourceCode elixir"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> add<span class="fu">(</span><span class="va">a:</span> int, <span class="va">b:</span> int<span class="fu">)</span>: int</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    a <span class="op">+</span> b</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> greet<span class="fu">(</span><span class="va">name:</span> string<span class="fu">)</span>: string</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Hello, </span><span class="ot">#{</span>name<span class="ot">}</span><span class="st">!&quot;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Functions have implicit return - last expression is returned</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> multiply<span class="fu">(</span><span class="va">x:</span> int, <span class="va">y:</span> int<span class="fu">)</span>: int</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    x <span class="op">*</span> y</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div>
 <h2>Function Types</h2>
 <p>Functions are values and can be passed around:</p>
-<pre class="epos"><code># Function type syntax: fn(param_types) =&gt; return_type
-fn higher-order(f: fn(int, int) =&gt; int, x: int, y: int): int
-    f(x, y)
-end
-
-# Use it
-result: int = higher-order(add, 5, 3)  # result is 8
-</code></pre>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode elixir"><code class="sourceCode elixir"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function type syntax: fn(param_types) =&gt; return_type</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> higher<span class="op">-</span>order<span class="fu">(</span><span class="va">f:</span> <span class="kw">fn</span><span class="fu">(</span>int, int<span class="fu">)</span> <span class="op">=&gt;</span> int, <span class="va">x:</span> int, <span class="va">y:</span> int<span class="fu">)</span>: int</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    f<span class="fu">(</span>x, y<span class="fu">)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Use it</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="va">result:</span> int <span class="op">=</span> higher<span class="op">-</span>order<span class="fu">(</span>add, <span class="dv">5</span>, <span class="dv">3</span><span class="fu">)</span>  <span class="co"># result is 8</span></span></code></pre></div>
 <h2>Lambda Functions</h2>
 <p>Create anonymous functions using lambda syntax:</p>
-<pre class="epos"><code># Lambda with explicit type
-square := fn(x: int) =&gt; x * x
-
-# Use lambdas with higher-order functions
-numbers: list(int) = {1, 2, 3, 4, 5}
-squared := map(numbers, fn(x: int) =&gt; x * x)
-</code></pre>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode elixir"><code class="sourceCode elixir"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lambda with explicit type</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>square :<span class="op">=</span> <span class="kw">fn</span><span class="fu">(</span><span class="va">x:</span> int<span class="fu">)</span> <span class="op">=&gt;</span> x <span class="op">*</span> x</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use lambdas with higher-order functions</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="va">numbers:</span> list<span class="fu">(</span>int<span class="fu">)</span> <span class="op">=</span> <span class="fu">{</span><span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span><span class="fu">}</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>squared :<span class="op">=</span> map<span class="fu">(</span>numbers, <span class="kw">fn</span><span class="fu">(</span><span class="va">x:</span> int<span class="fu">)</span> <span class="op">=&gt;</span> x <span class="op">*</span> x<span class="fu">)</span></span></code></pre></div>
 <h2>Default Parameters</h2>
 <p>Functions can have default parameter values:</p>
-<pre class="epos"><code>fn greet-with-title(name: string, title: string = &quot;Mr.&quot;): string
-    &quot;Hello, #{title} #{name}!&quot;
-end
-
-# Call with default
-greeting1 := greet-with-title(&quot;Smith&quot;)        # &quot;Hello, Mr. Smith!&quot;
-
-# Call with explicit value
-greeting2 := greet-with-title(&quot;Smith&quot;, &quot;Dr.&quot;) # &quot;Hello, Dr. Smith!&quot;
-</code></pre>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode elixir"><code class="sourceCode elixir"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> greet<span class="op">-</span>with<span class="op">-</span>title<span class="fu">(</span><span class="va">name:</span> string, <span class="va">title:</span> string <span class="op">=</span> <span class="st">&quot;Mr.&quot;</span><span class="fu">)</span>: string</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Hello, </span><span class="ot">#{</span>title<span class="ot">}</span><span class="st"> </span><span class="ot">#{</span>name<span class="ot">}</span><span class="st">!&quot;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Call with default</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>greeting1 :<span class="op">=</span> greet<span class="op">-</span>with<span class="op">-</span>title<span class="fu">(</span><span class="st">&quot;Smith&quot;</span><span class="fu">)</span>        <span class="co"># &quot;Hello, Mr. Smith!&quot;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Call with explicit value</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>greeting2 :<span class="op">=</span> greet<span class="op">-</span>with<span class="op">-</span>title<span class="fu">(</span><span class="st">&quot;Smith&quot;</span>, <span class="st">&quot;Dr.&quot;</span><span class="fu">)</span> <span class="co"># &quot;Hello, Dr. Smith!&quot;</span></span></code></pre></div>
 <h2>Generic Functions</h2>
 <p>Write functions that work with any type:</p>
-<pre class="epos"><code>fn identity(value: t): t
-    value
-end
-
-# Generic function with multiple type parameters
-fn make-pair(first: a, second: b): Pair(a, b)
-    @{
-        first =&gt; first,
-        second =&gt; second
-    }
-end
-
-# Usage
-name-age := make-pair(&quot;Alice&quot;, 30)
-coords := make-pair(10, 20)
-</code></pre>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode elixir"><code class="sourceCode elixir"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> identity<span class="fu">(</span><span class="va">value:</span> t<span class="fu">)</span>: t</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    value</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Generic function with multiple type parameters</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> make<span class="op">-</span>pair<span class="fu">(</span><span class="va">first:</span> a, <span class="va">second:</span> b<span class="fu">)</span>: <span class="cn">Pair</span><span class="fu">(</span>a, b<span class="fu">)</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    @<span class="fu">{</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        first <span class="op">=&gt;</span> first,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        second <span class="op">=&gt;</span> second</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Usage</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>name<span class="op">-</span>age :<span class="op">=</span> make<span class="op">-</span>pair<span class="fu">(</span><span class="st">&quot;Alice&quot;</span>, <span class="dv">30</span><span class="fu">)</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>coords :<span class="op">=</span> make<span class="op">-</span>pair<span class="fu">(</span><span class="dv">10</span>, <span class="dv">20</span><span class="fu">)</span></span></code></pre></div>
 <h2>Higher-Order Functions</h2>
 <p>Functions that take or return other functions:</p>
-<pre class="epos"><code># Function that returns a function
-fn make-adder(n: int): fn(int) =&gt; int
-    fn(x: int) =&gt; x + n
-end
-
-add-five := make-adder(5)
-result := add-five(10)  # result is 15
-
-# Function composition
-fn compose(f: fn(b) =&gt; c, g: fn(a) =&gt; b): fn(a) =&gt; c
-    fn(x: a) =&gt; f(g(x))
-end
-</code></pre>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode elixir"><code class="sourceCode elixir"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function that returns a function</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> make<span class="op">-</span>adder<span class="fu">(</span><span class="va">n:</span> int<span class="fu">)</span>: <span class="kw">fn</span><span class="fu">(</span>int<span class="fu">)</span> <span class="op">=&gt;</span> int</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span><span class="fu">(</span><span class="va">x:</span> int<span class="fu">)</span> <span class="op">=&gt;</span> x <span class="op">+</span> n</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>add<span class="op">-</span>five :<span class="op">=</span> make<span class="op">-</span>adder<span class="fu">(</span><span class="dv">5</span><span class="fu">)</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>result :<span class="op">=</span> add<span class="op">-</span>five<span class="fu">(</span><span class="dv">10</span><span class="fu">)</span>  <span class="co"># result is 15</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Function composition</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> compose<span class="fu">(</span><span class="va">f:</span> <span class="kw">fn</span><span class="fu">(</span>b<span class="fu">)</span> <span class="op">=&gt;</span> c, <span class="va">g:</span> <span class="kw">fn</span><span class="fu">(</span>a<span class="fu">)</span> <span class="op">=&gt;</span> b<span class="fu">)</span>: <span class="kw">fn</span><span class="fu">(</span>a<span class="fu">)</span> <span class="op">=&gt;</span> c</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span><span class="fu">(</span><span class="va">x:</span> a<span class="fu">)</span> <span class="op">=&gt;</span> f<span class="fu">(</span>g<span class="fu">(</span>x<span class="fu">))</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div>
 <h2>Recursive Functions</h2>
 <p>Functions can call themselves:</p>
-<pre class="epos"><code>fn factorial(n: int): int
-    match n &lt;= 1 then
-        true =&gt; 1
-        false =&gt; n * factorial(n - 1)
-    end
-end
-
-fn fibonacci(n: int): int
-    match n then
-        0, 1 =&gt; n
-        _ =&gt; fibonacci(n - 1) + fibonacci(n - 2)
-    end
-end
-</code></pre>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode elixir"><code class="sourceCode elixir"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> factorial<span class="fu">(</span><span class="va">n:</span> int<span class="fu">)</span>: int</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    match n <span class="op">&lt;=</span> <span class="dv">1</span> then</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="cn">true</span> <span class="op">=&gt;</span> <span class="dv">1</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="cn">false</span> <span class="op">=&gt;</span> n <span class="op">*</span> factorial<span class="fu">(</span>n <span class="op">-</span> <span class="dv">1</span><span class="fu">)</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> fibonacci<span class="fu">(</span><span class="va">n:</span> int<span class="fu">)</span>: int</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    match n then</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="dv">0</span>, <span class="dv">1</span> <span class="op">=&gt;</span> n</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        _ <span class="op">=&gt;</span> fibonacci<span class="fu">(</span>n <span class="op">-</span> <span class="dv">1</span><span class="fu">)</span> <span class="op">+</span> fibonacci<span class="fu">(</span>n <span class="op">-</span> <span class="dv">2</span><span class="fu">)</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div>
 <h2>Built-in List Functions</h2>
 <p>Epos provides several built-in functions for working with lists:</p>
-<pre class="epos"><code>numbers: list(int) = {1, 2, 3, 4, 5}
-
-# Map: transform each element
-doubled := map(numbers, fn(x: int) =&gt; x * 2)
-
-# Filter: select elements that match a predicate  
-evens := filter(numbers, fn(x: int) =&gt; x % 2 == 0)
-
-# Each: iterate over list elements
-each(numbers, fn(x: int) =&gt; print(x))
-
-# Length: get number of elements
-count := len(numbers)
-
-# Element access
-first := elem(numbers, 0)
-</code></pre>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode elixir"><code class="sourceCode elixir"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="va">numbers:</span> list<span class="fu">(</span>int<span class="fu">)</span> <span class="op">=</span> <span class="fu">{</span><span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span><span class="fu">}</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Map: transform each element</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>doubled :<span class="op">=</span> map<span class="fu">(</span>numbers, <span class="kw">fn</span><span class="fu">(</span><span class="va">x:</span> int<span class="fu">)</span> <span class="op">=&gt;</span> x <span class="op">*</span> <span class="dv">2</span><span class="fu">)</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter: select elements that match a predicate  </span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>evens :<span class="op">=</span> filter<span class="fu">(</span>numbers, <span class="kw">fn</span><span class="fu">(</span><span class="va">x:</span> int<span class="fu">)</span> <span class="op">=&gt;</span> x<span class="op"> % </span><span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span><span class="fu">)</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Each: iterate over list elements</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>each<span class="fu">(</span>numbers, <span class="kw">fn</span><span class="fu">(</span><span class="va">x:</span> int<span class="fu">)</span> <span class="op">=&gt;</span> print<span class="fu">(</span>x<span class="fu">))</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Length: get number of elements</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>count :<span class="op">=</span> len<span class="fu">(</span>numbers<span class="fu">)</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Element access</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>first :<span class="op">=</span> elem<span class="fu">(</span>numbers, <span class="dv">0</span><span class="fu">)</span></span></code></pre></div>
 <h2>Void Functions</h2>
 <p>Functions that don’t return a value use <code>void</code>:</p>
-<pre class="epos"><code>fn log-message(message: string)
-    print(&quot;LOG: #{message}&quot;)
-end
-
-fn print-list(items: list(string))
-    each(items, fn(item: string) =&gt; print(item))
-end
-</code></pre>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode elixir"><code class="sourceCode elixir"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> log<span class="op">-</span>message<span class="fu">(</span><span class="va">message:</span> string<span class="fu">)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    print<span class="fu">(</span><span class="st">&quot;LOG: </span><span class="ot">#{</span>message<span class="ot">}</span><span class="st">&quot;</span><span class="fu">)</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> print<span class="op">-</span>list<span class="fu">(</span><span class="va">items:</span> list<span class="fu">(</span>string<span class="fu">))</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    each<span class="fu">(</span>items, <span class="kw">fn</span><span class="fu">(</span><span class="va">item:</span> string<span class="fu">)</span> <span class="op">=&gt;</span> print<span class="fu">(</span>item<span class="fu">))</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div>
 <h2>Type Aliases for Function Types</h2>
 <p>Make complex function types more readable:</p>
-<pre class="epos"><code>type Predicate(t) = fn(t) =&gt; bool
-type Transform(a, b) = fn(a) =&gt; b
-type BinaryOp(t) = fn(t, t) =&gt; t
-
-fn filter-with-predicate(items: list(t), pred: Predicate(t)): list(t)
-    filter(items, pred)
-end
-</code></pre>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode elixir"><code class="sourceCode elixir"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>type <span class="cn">Predicate</span><span class="fu">(</span>t<span class="fu">)</span> <span class="op">=</span> <span class="kw">fn</span><span class="fu">(</span>t<span class="fu">)</span> <span class="op">=&gt;</span> bool</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>type <span class="cn">Transform</span><span class="fu">(</span>a, b<span class="fu">)</span> <span class="op">=</span> <span class="kw">fn</span><span class="fu">(</span>a<span class="fu">)</span> <span class="op">=&gt;</span> b</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>type <span class="cn">BinaryOp</span><span class="fu">(</span>t<span class="fu">)</span> <span class="op">=</span> <span class="kw">fn</span><span class="fu">(</span>t, t<span class="fu">)</span> <span class="op">=&gt;</span> t</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> filter<span class="op">-</span>with<span class="op">-</span>predicate<span class="fu">(</span><span class="va">items:</span> list<span class="fu">(</span>t<span class="fu">)</span>, <span class="va">pred:</span> <span class="cn">Predicate</span><span class="fu">(</span>t<span class="fu">))</span>: list<span class="fu">(</span>t<span class="fu">)</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    filter<span class="fu">(</span>items, pred<span class="fu">)</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div>
 <p>Next, learn about pattern matching in Epos.</p>
 
+    
+      <a href="/learn/pattern-matching">→</a>
+    
   </main>
 </body>
 </html>
