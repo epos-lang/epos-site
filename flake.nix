@@ -16,7 +16,7 @@
           mkdir docs docs/assets docs/learn
           echo "epos-lang.org" > docs/CNAME
           cp src/index.html docs/index.html
-          cp -r public/assets/* docs/assets
+          cp -r assets/* docs/assets
           ${pkgs.tailwindcss}/bin/tailwindcss -i src/style.css -o docs/style.css -m
 
           find src/learn -type f -name "*.pdf" | while read -r file; do
