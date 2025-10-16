@@ -32,12 +32,10 @@
 
 pre {
   @apply rounded-md shadow-xl selection:bg-gray-200 selection:text-gray-900;
-
-  & code {
-    font-family: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
-  }
 }
-
+code {
+  font-family: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+}
 
 body {
   @apply bg-red-900;
