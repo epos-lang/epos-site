@@ -43,8 +43,8 @@ section {
     }
 
     & pre {
-      @apply shadow-lg shadow-gray-900 selection:bg-gray-200 selection:text-gray-900;
-      font-family: monospace;
+      @apply shadow-lg selection:bg-gray-200 selection:text-gray-900;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
 
       & code {
         @apply rounded-md;
