@@ -21,7 +21,7 @@
 
           cp src/learn/*.pdf docs/learn/
           ${pkgs.tailwindcss}/bin/tailwindcss -i src/learn/style.css -o docs/learn/style.css -m
-          ${learn.packages.${system}.default}/bin/build-docs
+          #${learn.packages.${system}.default}/bin/build-docs
           cp src/learn/html/*.html docs/learn/
         '';
       });

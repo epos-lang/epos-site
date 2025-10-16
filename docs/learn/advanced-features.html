@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Advanced features</title>
+  <meta name="title" content="Epos Programming Language Docs — Advanced features">
+  <meta name="description" content="Advanced features" />
+
+  <!-- Code highlighting -->
+  <link rel="stylesheet" href="/assets/highlight.js/highlight.min.css">
+  <link rel="stylesheet" href="/assets/highlight.js/rose-pine-moon.css">
+  <script src="/assets/highlight.js/highlight.min.js"></script>
+  <script src="/assets/highlight.js/elixir.min.js"></script>
+  <script>hljs.highlightAll();</script>
+
+  <!-- Font preloads -->
+  <link rel="preload" href="/assets/fonts/junicode/Junicode.ttf" as="font" type="font/ttf" crossorigin />
+  <link rel="preload" href="/assets/fonts/junicode/Junicode-Bold.ttf" as="font" type="font/ttf" crossorigin />
+  <link rel="preload" href="/assets/fonts/junicode/Junicode-BoldItalic.ttf" as="font" type="font/ttf" crossorigin />
+  <link rel="preload" href="/assets/fonts/junicode/Junicode-Italic.ttf" as="font" type="font/ttf" crossorigin />
+
+  <link href="/learn/style.css" rel="stylesheet">
+  <style>
+    code.elixir {
+      @apply language-elixir;
+    }
+    code.bash {
+      @apply language-bash;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div>
+      <p>
+        This page is available as PDF <a href="/learn/advanced-features.pdf">here</a>.
+      </p>
+    </div>
+    <h1>Advanced Features</h1>
+<p>This guide covers advanced Epos features including generics,
+higher-order programming, and working with complex data flows.</p>
+<h2>Generic Programming</h2>
+<h3>Generic Functions with Multiple Parameters</h3>
+<p>Create functions that work with multiple generic types:</p>
+<pre class="epos"><code>fn zip(first: list(a), second: list(b)): list(Pair(a, b))
+  # Implementation would recursively build pairs
+  {}  # Placeholder
+end
+
+fn fold(items: list(t), initial: a, combiner: fn(a, t) =&gt; a): a
+  match len(items) then
+    0 =&gt; initial
+    _ =&gt; fold(tail(items), combiner(initial, head(items)), combiner)
+  end
+end
+</code></pre>
+<h3>Generic Type Constraints</h3>
+<p>While Epos doesn’t have explicit constraints, patterns emerge for
+type-safe generic code:</p>
+<pre class="epos"><code># Generic container with operations
+record Container(t)
+  items: list(t)
+  size: int
+end
+
+fn add-to-container(container: Container(t), item: t): Container(t)
+  @{
+    items =&gt; append(container.items, item),
+    size =&gt; container.size + 1
+  }
+end
+</code></pre>
+<h2>Advanced Pattern Matching</h2>
+<h3>Matching with Complex Conditions</h3>
+<pre class="epos"><code>record Result(t, e)
+  value?: t
+  error?: e
+  is-success: bool
+end
+
+fn handle-result(result: Result(string, string)): string
+  match result.is-success then
+    true =&gt; match result.value then
+      some-value =&gt; &quot;Success: #{some-value}&quot;
+      _ =&gt; &quot;Success but no value&quot;
+    end
+    false =&gt; match result.error then
+      some-error =&gt; &quot;Error: #{some-error}&quot;
+      _ =&gt; &quot;Unknown error&quot;
+    end
+  end
+end
+</code></pre>
+<h3>Pattern Matching with Deconstruction</h3>
+<pre class="epos"><code># Match and extract from complex structures
+fn process-request(request: HttpRequest): HttpResponse
+  match request.method then
+    &quot;GET&quot; =&gt; handle-get(request.path, request.params)
+    &quot;POST&quot; =&gt; handle-post(request.path, request.body)
+    &quot;PUT&quot; =&gt; handle-put(request.path, request.body)
+    _ =&gt; @{
+      status =&gt; 405,
+      body =&gt; &quot;Method not allowed&quot;
+    }
+  end
+end
+</code></pre>
+<h2>Higher-Order Programming Patterns</h2>
+<h3>Function Composition and Chaining</h3>
+<pre class="epos"><code># Function composition
+fn compose(f: fn(b) =&gt; c, g: fn(a) =&gt; b): fn(a) =&gt; c
+  fn(x: a) =&gt; f(g(x))
+end
+
+# Pipe operator simulation
+fn pipe(value: a, transform: fn(a) =&gt; b): b
+  transform(value)
+end
+
+# Chaining transformations
+result := numbers
+  .pipe(fn(nums: list(int)) =&gt; filter(nums, fn(n: int) =&gt; n &gt; 0))
+  .pipe(fn(nums: list(int)) =&gt; map(nums, fn(n: int) =&gt; n * 2))
+  .pipe(fn(nums: list(int)) =&gt; fold(nums, 0, fn(acc: int, n: int) =&gt; acc + n))
+</code></pre>
+<h3>Currying and Partial Application</h3>
+<pre class="epos"><code># Curried functions
+fn curried-add(a: int): fn(int) =&gt; int
+  fn(b: int) =&gt; a + b
+end
+
+add-five := curried-add(5)
+result := add-five(10)  # 15
+
+# Partial application pattern
+fn make-validator(min-length: int): fn(string) =&gt; bool
+  fn(input: string) =&gt; len(input) &gt;= min-length
+end
+
+validate-password := make-validator(8)
+is-valid := validate-password(&quot;mypassword&quot;)
+</code></pre>
+<h2>Working with Lists - Advanced Operations</h2>
+<h3>Custom List Operations</h3>
+<pre class="epos"><code># Take first n elements
+fn take(items: list(t), count: int): list(t)
+  match count &lt;= 0 || len(items) == 0 then
+    true =&gt; {}
+    false =&gt; {head(items), ..take(tail(items), count - 1)}
+  end
+end
+
+# Drop first n elements  
+fn drop(items: list(t), count: int): list(t)
+  match count &lt;= 0 then
+    true =&gt; items
+    false =&gt; match len(items) then
+      0 =&gt; {}
+      _ =&gt; drop(tail(items), count - 1)
+    end
+  end
+end
+
+# Group consecutive elements
+fn group-by(items: list(t), key-fn: fn(t) =&gt; k): list(list(t))
+  # Implementation would group items by key function result
+  {}  # Placeholder
+end
+</code></pre>
+<h3>List Processing Pipelines</h3>
+<pre class="epos"><code># Complex data processing pipeline
+fn process-data(raw-data: list(string)): list(ProcessedRecord)
+  raw-data
+    .filter(fn(line: string) =&gt; len(line) &gt; 0)     # Remove empty lines
+    .map(fn(line: string) =&gt; parse-csv-line(line))  # Parse each line
+    .filter(fn(record: RawRecord) =&gt; validate-record(record))  # Validate
+    .map(fn(record: RawRecord) =&gt; transform-record(record))    # Transform
+end
+</code></pre>
+<h2>Error Handling Patterns</h2>
+<h3>Option Type Pattern</h3>
+<pre class="epos"><code>record Option(t)
+  value?: t
+  has-value: bool
+end
+
+fn some(value: t): Option(t)
+  @{
+    value =&gt; value,
+    has-value =&gt; true
+  }
+end
+
+fn none(): Option(t)
+  @{
+    has-value =&gt; false
+  }
+end
+
+fn map-option(opt: Option(a), transform: fn(a) =&gt; b): Option(b)
+  match opt.has-value then
+    true =&gt; some(transform(opt.value))
+    false =&gt; none()
+  end
+end
+</code></pre>
+<h3>Result Type Pattern</h3>
+<pre class="epos"><code>record Result(t, e)
+  value?: t
+  error?: e
+  is-success: bool
+end
+
+fn ok(value: t): Result(t, e)
+  @{
+    value =&gt; value,
+    is-success =&gt; true
+  }
+end
+
+fn err(error: e): Result(t, e)
+  @{
+    error =&gt; error,
+    is-success =&gt; false
+  }
+end
+</code></pre>
+<h2>Module-like Organization</h2>
+<h3>Namespace Patterns</h3>
+<pre class="epos"><code># Group related functions using record-like syntax
+math-utils := @{
+  add =&gt; fn(a: int, b: int): int =&gt; a + b,
+  multiply =&gt; fn(a: int, b: int): int =&gt; a * b,
+  power =&gt; fn(base: int, exp: int): int =&gt; 
+    match exp then
+      0 =&gt; 1
+      _ =&gt; base * math-utils.power(base, exp - 1)
+    end
+}
+
+# Usage
+result := math-utils.add(5, 3)
+squared := math-utils.power(4, 2)
+</code></pre>
+<h2>Performance Patterns</h2>
+<h3>Tail Recursion</h3>
+<pre class="epos"><code># Tail-recursive factorial
+fn factorial-tail(n: int, acc: int = 1): int
+  match n &lt;= 1 then
+    true =&gt; acc
+    false =&gt; factorial-tail(n - 1, n * acc)
+  end
+end
+
+# Tail-recursive list processing
+fn reverse-tail(items: list(t), acc: list(t) = {}): list(t)
+  match len(items) then
+    0 =&gt; acc
+    _ =&gt; reverse-tail(tail(items), {head(items), ..acc})
+  end
+end
+</code></pre>
+<h3>Lazy Evaluation Simulation</h3>
+<pre class="epos"><code># Lazy computation using functions
+record Lazy(t)
+  compute: fn() =&gt; t
+  computed?: t
+  is-computed: bool
+end
+
+fn lazy(computation: fn() =&gt; t): Lazy(t)
+  @{
+    compute =&gt; computation,
+    is-computed =&gt; false
+  }
+end
+
+fn force(lazy-val: Lazy(t)): t
+  match lazy-val.is-computed then
+    true =&gt; lazy-val.computed
+    false =&gt; lazy-val.compute()
+  end
+end
+</code></pre>
+<p>These advanced features enable sophisticated functional programming
+patterns while maintaining Epos’s clean syntax and type safety.</p>
+
+  </main>
+</body>
+</html>

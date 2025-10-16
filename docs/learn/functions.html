@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Functions</title>
+  <meta name="title" content="Epos Programming Language Docs — Functions">
+  <meta name="description" content="Functions" />
+
+  <!-- Code highlighting -->
+  <link rel="stylesheet" href="/assets/highlight.js/highlight.min.css">
+  <link rel="stylesheet" href="/assets/highlight.js/rose-pine-moon.css">
+  <script src="/assets/highlight.js/highlight.min.js"></script>
+  <script src="/assets/highlight.js/elixir.min.js"></script>
+  <script>hljs.highlightAll();</script>
+
+  <!-- Font preloads -->
+  <link rel="preload" href="/assets/fonts/junicode/Junicode.ttf" as="font" type="font/ttf" crossorigin />
+  <link rel="preload" href="/assets/fonts/junicode/Junicode-Bold.ttf" as="font" type="font/ttf" crossorigin />
+  <link rel="preload" href="/assets/fonts/junicode/Junicode-BoldItalic.ttf" as="font" type="font/ttf" crossorigin />
+  <link rel="preload" href="/assets/fonts/junicode/Junicode-Italic.ttf" as="font" type="font/ttf" crossorigin />
+
+  <link href="/learn/style.css" rel="stylesheet">
+  <style>
+    code.elixir {
+      @apply language-elixir;
+    }
+    code.bash {
+      @apply language-bash;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div>
+      <p>
+        This page is available as PDF <a href="/learn/functions.pdf">here</a>.
+      </p>
+    </div>
+    <h1>Functions</h1>
+<p>Functions are first-class values in Epos, supporting higher-order
+functions, generics, and default parameters.</p>
+<h2>Basic Function Syntax</h2>
+<p>Functions use the <code>fn</code> keyword with explicit return
+types:</p>
+<pre class="epos"><code>fn add(a: int, b: int): int
+    a + b
+end
+
+fn greet(name: string): string
+    &quot;Hello, #{name}!&quot;
+end
+
+# Functions have implicit return - last expression is returned
+fn multiply(x: int, y: int): int
+    x * y
+end
+</code></pre>
+<h2>Function Types</h2>
+<p>Functions are values and can be passed around:</p>
+<pre class="epos"><code># Function type syntax: fn(param_types) =&gt; return_type
+fn higher-order(f: fn(int, int) =&gt; int, x: int, y: int): int
+    f(x, y)
+end
+
+# Use it
+result: int = higher-order(add, 5, 3)  # result is 8
+</code></pre>
+<h2>Lambda Functions</h2>
+<p>Create anonymous functions using lambda syntax:</p>
+<pre class="epos"><code># Lambda with explicit type
+square := fn(x: int) =&gt; x * x
+
+# Use lambdas with higher-order functions
+numbers: list(int) = {1, 2, 3, 4, 5}
+squared := map(numbers, fn(x: int) =&gt; x * x)
+</code></pre>
+<h2>Default Parameters</h2>
+<p>Functions can have default parameter values:</p>
+<pre class="epos"><code>fn greet-with-title(name: string, title: string = &quot;Mr.&quot;): string
+    &quot;Hello, #{title} #{name}!&quot;
+end
+
+# Call with default
+greeting1 := greet-with-title(&quot;Smith&quot;)        # &quot;Hello, Mr. Smith!&quot;
+
+# Call with explicit value
+greeting2 := greet-with-title(&quot;Smith&quot;, &quot;Dr.&quot;) # &quot;Hello, Dr. Smith!&quot;
+</code></pre>
+<h2>Generic Functions</h2>
+<p>Write functions that work with any type:</p>
+<pre class="epos"><code>fn identity(value: t): t
+    value
+end
+
+# Generic function with multiple type parameters
+fn make-pair(first: a, second: b): Pair(a, b)
+    @{
+        first =&gt; first,
+        second =&gt; second
+    }
+end
+
+# Usage
+name-age := make-pair(&quot;Alice&quot;, 30)
+coords := make-pair(10, 20)
+</code></pre>
+<h2>Higher-Order Functions</h2>
+<p>Functions that take or return other functions:</p>
+<pre class="epos"><code># Function that returns a function
+fn make-adder(n: int): fn(int) =&gt; int
+    fn(x: int) =&gt; x + n
+end
+
+add-five := make-adder(5)
+result := add-five(10)  # result is 15
+
+# Function composition
+fn compose(f: fn(b) =&gt; c, g: fn(a) =&gt; b): fn(a) =&gt; c
+    fn(x: a) =&gt; f(g(x))
+end
+</code></pre>
+<h2>Recursive Functions</h2>
+<p>Functions can call themselves:</p>
+<pre class="epos"><code>fn factorial(n: int): int
+    match n &lt;= 1 then
+        true =&gt; 1
+        false =&gt; n * factorial(n - 1)
+    end
+end
+
+fn fibonacci(n: int): int
+    match n then
+        0, 1 =&gt; n
+        _ =&gt; fibonacci(n - 1) + fibonacci(n - 2)
+    end
+end
+</code></pre>
+<h2>Built-in List Functions</h2>
+<p>Epos provides several built-in functions for working with lists:</p>
+<pre class="epos"><code>numbers: list(int) = {1, 2, 3, 4, 5}
+
+# Map: transform each element
+doubled := map(numbers, fn(x: int) =&gt; x * 2)
+
+# Filter: select elements that match a predicate  
+evens := filter(numbers, fn(x: int) =&gt; x % 2 == 0)
+
+# Each: iterate over list elements
+each(numbers, fn(x: int) =&gt; print(x))
+
+# Length: get number of elements
+count := len(numbers)
+
+# Element access
+first := elem(numbers, 0)
+</code></pre>
+<h2>Void Functions</h2>
+<p>Functions that don’t return a value use <code>void</code>:</p>
+<pre class="epos"><code>fn log-message(message: string)
+    print(&quot;LOG: #{message}&quot;)
+end
+
+fn print-list(items: list(string))
+    each(items, fn(item: string) =&gt; print(item))
+end
+</code></pre>
+<h2>Type Aliases for Function Types</h2>
+<p>Make complex function types more readable:</p>
+<pre class="epos"><code>type Predicate(t) = fn(t) =&gt; bool
+type Transform(a, b) = fn(a) =&gt; b
+type BinaryOp(t) = fn(t, t) =&gt; t
+
+fn filter-with-predicate(items: list(t), pred: Predicate(t)): list(t)
+    filter(items, pred)
+end
+</code></pre>
+<p>Next, learn about pattern matching in Epos.</p>
+
+  </main>
+</body>
+</html>
