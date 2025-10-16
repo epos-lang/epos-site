@@ -17,7 +17,7 @@ def template(title, pdf, content):
 
 def render_file(path):
     content = pypandoc.convert_file(path, 'html5')
-    raw_path = path.split('.')[0].split('-')[1]
+    raw_path = '-'.join(path.split('.')[0].split('-')[1:])
     order = int(path.split('.')[0].split('-')[0])
     title = raw_path.replace('-', ' ').capitalize().replace("epos", "Epos")
     full_content = template(title, path.replace("typst", "pdf"), content)
