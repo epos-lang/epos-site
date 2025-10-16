@@ -1,0 +1,55 @@
+@font-face {
+  font-family: 'Junicode';
+  src: url('/assets/fonts/junicode/Junicode.ttf');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Junicode Bold';
+  src: url('/assets/fonts/junicode/Junicode-Bold.ttf');
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'Junicode Italic';
+  src: url('/assets/fonts/junicode/Junicode-Italic.ttf');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Junicode Bold Italic';
+  src: url('/assets/fonts/junicode/Junicode-BoldItalic.ttf');
+  font-weight: 700;
+}
+
+* {
+  font-family: 'Junicode', serif;
+  @apply selection:bg-red-200 selection:text-red-900;
+}
+
+body {
+  @apply bg-red-900;
+}
+
+main {
+  @apply mx-auto min-h-full max-w-5xl py-16;
+}
+
+h1 {
+  @apply text-4xl md:text-6xl font-bold text-gray-100;
+}
+
+h2 {
+  @apply text-2xl md:text-4xl text-gray-200;
+}
+
+h3 {
+  @apply text-xl md:text-2xl text-gray-300;
+}
+
+i {
+  @apply text-red-300;
+  font-family: 'Junicode Italic', serif;
+}
+
+b {
+  @apply text-red-300 font-bold;
+  font-family: 'Junicode Bold', serif;
+}

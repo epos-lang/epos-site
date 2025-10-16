@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ title }}</title>
-  <meta name="title" content="Epos Programming Language Docs — {{ title }}">
-  <meta name="description" content="{{ title }}" />
+  <meta name="title" content="Epos Programming Language Docs — TOC">
+  <meta name="description" content="Table of contents for Epos docs" />
 
   <!-- Code highlighting -->
   <link rel="stylesheet" href="/assets/highlight.js/highlight.min.css">
@@ -32,12 +32,10 @@
 </head>
 <body>
   <main>
-    <div>
-      <p>
-        This page is available as PDF <a href="/learn/{{ pdf }}">here</a>.
-      </p>
-    </div>
-    {{ content }}
+    <h1>Table of contents</h1>
+    {{ for page in pages }}
+      <a href="/learn{{ page.url }}">{{ page.title }}</a>
+    {{ endfor }}
   </main>
 </body>
 </html>
