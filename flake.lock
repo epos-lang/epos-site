@@ -42,11 +42,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "path": "./src/learn",
+        "path": "./src",
         "type": "path"
       },
       "original": {
-        "path": "./src/learn",
+        "path": "./src",
         "type": "path"
       },
       "parent": []
